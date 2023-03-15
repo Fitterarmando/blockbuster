@@ -17,6 +17,7 @@
 		766CC41A29C2287000205572 /* MovieListModelPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766CC41929C2287000205572 /* MovieListModelPresentation.swift */; };
 		766CC41C29C2293300205572 /* MovieListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766CC41B29C2293300205572 /* MovieListItemCell.swift */; };
 		766CC41E29C2294C00205572 /* MovieListItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766CC41D29C2294B00205572 /* MovieListItemCell.xib */; };
+		766CC42229C2461100205572 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766CC42129C2461100205572 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		766CC41929C2287000205572 /* MovieListModelPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModelPresentation.swift; sourceTree = "<group>"; };
 		766CC41B29C2293300205572 /* MovieListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListItemCell.swift; sourceTree = "<group>"; };
 		766CC41D29C2294B00205572 /* MovieListItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieListItemCell.xib; sourceTree = "<group>"; };
+		766CC42129C2461100205572 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,8 +133,17 @@
 			isa = PBXGroup;
 			children = (
 				766CC41529C2270100205572 /* MovieList */,
+				766CC42029C245C900205572 /* Splashscreen */,
+				766CC42129C2461100205572 /* Constants.swift */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		766CC42029C245C900205572 /* Splashscreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Splashscreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +222,7 @@
 				766CC41A29C2287000205572 /* MovieListModelPresentation.swift in Sources */,
 				766CC3FE29C2245C00205572 /* AppDelegate.swift in Sources */,
 				766CC41C29C2293300205572 /* MovieListItemCell.swift in Sources */,
+				766CC42229C2461100205572 /* Constants.swift in Sources */,
 				766CC40029C2245C00205572 /* SceneDelegate.swift in Sources */,
 				766CC41829C2285800205572 /* MovieListCollectionView.swift in Sources */,
 			);

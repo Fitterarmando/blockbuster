@@ -10,10 +10,10 @@ import Foundation
 struct MovieListModelPresentation {
     let id: Int
     let posterPath: String
+    let popularity: Int
     let originalTittle: String
-    let overView: String
-    let releaseDate: Int
-    
+    let releaseDate: Date
+        
     
 }
   
