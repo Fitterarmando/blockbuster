@@ -9,7 +9,6 @@ import UIKit
 class CharactersItemCell : UICollectionViewCell {
     static let identifier = "CharactersItemCell"
     
-    
     @IBOutlet var shadow: UIView!
     @IBOutlet var card: UIView!
     @IBOutlet var image: UIImageView!
