@@ -12,9 +12,8 @@ struct MovieListModelPresentation {
     let posterPath: String
     let popularity: Int
     let originalTittle: String
-    let releaseDate: Date
+    let releaseDate: String
         
     
 }
   
-

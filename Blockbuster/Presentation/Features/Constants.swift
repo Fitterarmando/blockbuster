@@ -7,5 +7,5 @@
 
 import UIKit
 public struct Constants {
-    public static let SCREEN_WIDTH = UIScreen.main.bounds.size.width/3
+    public static let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 }
