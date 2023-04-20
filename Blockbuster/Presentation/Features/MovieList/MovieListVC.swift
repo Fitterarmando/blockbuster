@@ -6,20 +6,36 @@
 //
 
 import UIKit
+import Resolver
 
 class MovieListVC: UIViewController {
+    @Injected var movieListRepository: MovieRepository
     
+    
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var movieListCollectionView: MovieListCollectionView!
     
-
+    @IBOutlet var emptyState: UIScrollView!
+    @IBOutlet var emptyStateImage: UIImageView!
+    @IBOutlet var emptyStateMessage: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Movie List"
+        navigationItem.title = "Popular Movies"
+        emptyState.isHidden = true
+        movieListCollectionView.isHidden = true
         
         movieListCollectionView.register(UINib(nibName: MovieListItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: MovieListItemCell.identifier)
         movieListCollectionView.dataSource = movieListCollectionView
         movieListCollectionView.delegate = movieListCollectionView
+        
+        activityIndicator.startAnimating()
+        updateMovieList()
+        
+        
+        
+        configureRefreshControl()
         
         movieListCollectionView.onTap = { movie in
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -29,51 +45,61 @@ class MovieListVC: UIViewController {
             vc.modalTransitionStyle = .crossDissolve
             self.show(vc, sender: self)
         }
-        
-   
-        self.movieListCollectionView.collectionMovieList = fakeList
-        self.movieListCollectionView.reloadData()
-
-     
     }
     
+    private func setCollectionView(movieList: [MovieListModelDomain]) {
+        movieListCollectionView.isHidden = false
+        emptyState.isHidden = true
+        
+        //
+        let movieListPresentation = movieList.map { value in value.toPresentation() }
+        self.movieListCollectionView.collectionMovieList = movieListPresentation
+        self.movieListCollectionView.reloadData()
+    }
+    
+    private func setEmptyState(imageName: String , errorDescription: String ) {
+        movieListCollectionView.isHidden = true
+        emptyState.isHidden = false
+        
+        emptyStateImage.image = UIImage(named: imageName)
+        self.emptyStateMessage.text = errorDescription
+    }
+    
+    private func hideActivityIndicator() {
+        self.activityIndicator.stopAnimating()
+    }
+    
+    func configureRefreshControl () {
+        // Add the refresh control to your UIScrollView object.
+        emptyState.refreshControl = UIRefreshControl()
+        emptyState.refreshControl?.addTarget(self, action:
+                                                #selector(updateMovieList),
+                                             for: .valueChanged)
+        movieListCollectionView.refreshControl = UIRefreshControl()
+        movieListCollectionView.refreshControl?.addTarget(self, action:
+                                                            #selector(updateMovieList),
+                                                          for: .valueChanged)
+    }
+    
+    @objc func updateMovieList () {
+        movieListRepository.getMovieList { result in
+            self.hideActivityIndicator()
+            self.emptyState.refreshControl?.endRefreshing()
+            self.movieListCollectionView.refreshControl?.endRefreshing()
+            
+            switch result {
+            case.success(let movieList):
+                
+                if movieList.isEmpty {
+                    self.setEmptyState(imageName: "empty_list", errorDescription: "No hay peliculas por el momento")
+                } else {
+                    self.setCollectionView(movieList: movieList)
+                }
+                
+            case .failure(let error):
+                self.setEmptyState(imageName: "empty_list", errorDescription: "Algo salio mal, vuelve a intentarlo mas tarde")
+                print("Error")
+            }
+        }
+    }
 }
-
-private let fakeList = [
-    MovieListModelPresentation(
-        id: 1452,
-        posterPath: "https://pics.filmaffinity.com/Scream_VI-477367531-large.jpg",
-        popularity: 8,
-        originalTittle: "Scream 6",
-        releaseDate: "20 Marzo 23"),
-    MovieListModelPresentation(
-        id: 1452,
-        posterPath: "https://pics.filmaffinity.com/Scream_VI-477367531-large.jpg",
-        popularity: 86,
-        originalTittle: "Scream 6",
-        releaseDate: "20 Marzo 23"),
-    MovieListModelPresentation(
-        id: 1452,
-        posterPath: "https://pics.filmaffinity.com/Scream_VI-477367531-large.jpg",
-        popularity: 86,
-        originalTittle: "Scream 6",
-        releaseDate: "20 Marzo 23"),
-    MovieListModelPresentation(
-            id: 1452,
-            posterPath: "https://pics.filmaffinity.com/Scream_VI-477367531-large.jpg",
-            popularity: 86,
-            originalTittle: "Scream 6",
-            releaseDate: "20 Marzo 23"),
-    MovieListModelPresentation(
-        id: 1452,
-        posterPath: "https://pics.filmaffinity.com/Scream_VI-477367531-large.jpg",
-        popularity: 86,
-        originalTittle: "Scream 6",
-        releaseDate: "20 Marzo 23"),
-    MovieListModelPresentation(
-        id: 1452,
-        posterPath: "https://pics.filmaffinity.com/Scream_VI-477367531-large.jpg",
-        popularity: 86,
-        originalTittle: "Scream 6",
-        releaseDate: "20 Marzo 23")
-]

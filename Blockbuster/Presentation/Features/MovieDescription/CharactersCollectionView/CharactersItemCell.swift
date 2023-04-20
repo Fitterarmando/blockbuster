@@ -27,7 +27,12 @@ class CharactersItemCell : UICollectionViewCell {
         
         name.text = item.name
         alias.text = item.alias
-        image.load(url: item.image)
+        
+        image.image = nil
+        image.startShimmering()
+        image.load(url: item.image) {
+            self.image.stopShimmering()
+        }
     
         card.roundCorners()
         shadow.addShadow()
@@ -38,6 +43,7 @@ class CharactersItemCell : UICollectionViewCell {
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         guard let item = item else { return }
         onTap(item)
+       
     }
     
 }

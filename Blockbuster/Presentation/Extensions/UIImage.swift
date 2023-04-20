@@ -6,25 +6,20 @@
 //
 
 import UIKit
-import SDWebImage
 
 extension UIImageView {
-    func load(url: URL?, completion: @escaping () -> () = { }) {
-        self.sd_setImage (with: url, placeholderImage: nil, options: [], completed: { (theImage, error, cache, url) in
-            completion()
-        })
-    }
-    
-    func load(
-        url: String?,
-        completion: @escaping () -> () = { },
-        contentMode: ContentMode = UIView.ContentMode.scaleAspectFill
-    ) {
-        self.contentMode = contentMode
-        if let url = url, !url.isEmpty {
-            self.sd_setImage (with: URL(string:url), placeholderImage: nil, options: [], completed: { (theImage, error, cache, url) in
-                completion()
-            })
+    func load(url: String?, completion: @escaping () -> Void = {}) {
+        if let stringUrl = url, !stringUrl.isEmpty, let url = URL(string: stringUrl) {
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) { [weak self] in
+                if let data = try? Data(contentsOf: url) {
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.image = image
+                            completion()
+                        }
+                    }
+                }
+            }
         }
     }
 }

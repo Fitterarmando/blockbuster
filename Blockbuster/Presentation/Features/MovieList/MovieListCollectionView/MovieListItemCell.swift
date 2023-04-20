@@ -32,10 +32,14 @@ class MovieListItemCell: UICollectionViewCell {
         
         title.text = item.originalTittle
         releaseDate.text = "\(item.releaseDate)"
-        posterPath.load(
-            url: item.posterPath,
-            contentMode: .scaleAspectFill
-        )
+        
+        posterPath.image = nil
+        layoutIfNeeded()
+        posterPath.startShimmering()
+        posterPath.load(url: self.item?.posterPath) {
+            self.posterPath.stopShimmering()
+        }
+
         popularity.text = "\(item.popularity)"
         
         card.roundCorners()
@@ -46,7 +50,7 @@ class MovieListItemCell: UICollectionViewCell {
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
     
     }
-    
+            
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         guard let item = item else { return }
         onTap(item)

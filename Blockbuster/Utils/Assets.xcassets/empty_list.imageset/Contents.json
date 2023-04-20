@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "failure-wifi-icon-offline-symbol-no-internet-connection-icon-simple-wifi-signal-sign-disconnected-wireless-internet-signal-problem-access-vector-illustration-isolated-white-background_192280-948.jpg-2.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

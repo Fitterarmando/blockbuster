@@ -19,7 +19,7 @@ extension CharactersCollectionView: UICollectionViewDelegateFlowLayout {
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.layer.bounds.width/3
-        return CGSize(width: width , height: 200)
+        return CGSize(width: width , height: collectionView.layer.bounds.height)
     }
         
 }
